@@ -1,0 +1,4 @@
+<svg:path [ngClass]="{'hidden': isHidden}" class="dragline link" 
+    [attr.d]="startNode.x | asEdge: startNode.y: endCoord.x: endCoord.y: 0: 0: directed: false"
+    [attr.marker-end]="directed ? 'url(#end-arrow)' : ''">
+</svg:path>

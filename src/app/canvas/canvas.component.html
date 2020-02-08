@@ -1,0 +1,20 @@
+<div>
+    <svg [attr.width]="_options.width" [attr.height]="_options.height"
+        [addNode]="!ctrlDraggable" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <marker id="end-arrow"
+                viewBox = "0 -5 10 10" refX="10" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M 0 -5 L 10 0 L 0 5 z"></path>
+            </marker>
+        </defs>
+        <g [dragLine] [directed]="digraph"></g>
+        <g>
+            <g [nodeTemplate]="node" [ticker]="graph.ticker" *ngFor="let node of graph.nodes"
+                [draggable]="ctrlDraggable" [forceGraph]="graph" [dragNode]="node" 
+                [containerElement]="element">
+            </g>
+            <g [link]="link" [directed]="digraph" [ticker]="graph.ticker" *ngFor="let link of graph.links"></g>
+        </g>
+
+    </svg>
+</div>

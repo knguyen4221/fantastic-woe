@@ -1,0 +1,23 @@
+<svg:path [attr.id]="link.index" class="edge"
+    [attr.x1]="link.source.x"
+    [attr.y1]="link.source.y"
+    [attr.x2]="link.target.x"
+    [attr.y2]="link.target.y"
+    [attr.d]="link.source.x | asEdge: link.source.y: link.target.x : link.target.y: nodeRadius: arcDistance: directed: link.isArc"
+    [ngClass]="{ 'active': isEditing, 'simulationActive': link.isActive, 'simulationInactive': link.isActive === false,
+                'simulationTouched': link.touched }"
+    shape-rendering="auto"
+    [attr.marker-end]="directed ? 'url(#end-arrow)' : ''"
+    
+>
+</svg:path>
+<svg:text width="20" dy="-.3em" 
+    [modWeight]="link" 
+    [directed]="directed" 
+    [ngClass]="{'simulationInactive': link.isActive === false,
+        'simulationTouched': link.touched }"
+    [attr.rotate]="link.source.x > link.target.x ? 180 : 0"
+    (focus)="labelFocus()" (blur)="labelFocus()">
+    <svg:textPath [attr.href]="'#'+link.index"
+        startOffset="50%">{{link._weight | labelOrientation : link.source.x : link.target.x }}</svg:textPath>
+</svg:text>

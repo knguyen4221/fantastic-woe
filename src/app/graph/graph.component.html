@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <graph-canvas [graph]="graph" [digraph]="digraph" (d3AddNode)="addNode($event)" 
+                (d3AddLink)="addLink($event)" (d3DeleteNode)="deleteNode($event)" (d3DeleteLink)="deleteLink($event)"></graph-canvas>
+        </div>
+        <div class="col panel">
+            <div class="row border-bottom area">
+                <div class="form-check">
+                    <input class="form-check-input" id="digraph-checkbox" type="checkbox" [(ngModel)]="digraph" 
+                    (change)="clearLinksAndEdges()">
+                    <label class="form-check-label" for="digraph-checkbox">Directed Edges</label>
+                </div>
+            </div>
+            <div class="row border-bottom area">
+                <div>
+                    <ul class="tips">
+                        <li>CTRL + Drag to move nodes</li>
+                        <li>DEL to delete nodes and links</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="row area">
+                <mst-sim *ngIf="!digraph" [graph]="graph"></mst-sim>
+            </div>
+        </div>
+    </div>
+</div>

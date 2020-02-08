@@ -1,0 +1,29 @@
+.graph-node {
+    stroke: black;
+    stroke-width: 1px;
+    fill: white;
+    cursor: pointer;
+}
+
+.active {
+    fill: #96cd34;
+    stroke-width:2px;
+}
+
+.simulationInactive {
+    opacity: .2;
+}
+
+.simulationActive {
+    fill: red;
+    stroke-width: 2px;
+}
+
+text {
+    text-anchor: middle;
+    cursor: pointer;  
+    font-family: monospace;
+    pointer-events: none;
+    user-select: none;
+}
+

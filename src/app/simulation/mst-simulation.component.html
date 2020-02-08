@@ -1,0 +1,10 @@
+<div>
+    <span>MST (Prim's)</span>
+</div>
+<div>
+</div>
+<div>
+    <button class="btn btn-outline-dark" type="button" (click)="initialize()" [disabled]="isStarted"> start</button>
+    <button class="btn btn-outline-dark" type="button" (click)="tick()" [disabled]="!isStarted">tick</button>
+    <button class="btn btn-outline-dark" type="button" (click)="stop()" [disabled]="!isStarted">stop</button>
+</div>

@@ -1,0 +1,29 @@
+.edge {
+    stroke-width: 1.5px;
+    fill: none;
+    stroke: black;
+}
+
+.edge.active {
+    stroke-width: 3px;
+    stroke: green;
+}
+
+.simulationActive {
+    stroke: red;
+    stroke-width: 2px;
+}
+
+.simulationInactive {
+    opacity: .2;
+}
+
+.simulationTouched {
+    opacity: 1;
+}
+
+text {
+    text-anchor: middle;
+    font-family: monospace; 
+    font-size: 20px;
+}

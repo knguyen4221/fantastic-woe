@@ -1,0 +1,13 @@
+<svg:g class="draggable" [attr.transform]="'translate(' + node.x + ',' + node.y + ')'" 
+    [selectNode]="node"
+    [linkable]="node" tabindex="-1">
+    <svg:circle class="graph-node" 
+        [ngClass]="{'active': node.isSelected, 'simulationActive': node.isActive, 'simulationInactive': node.isActive === false }" 
+        [attr.r] = "nodeRadius"
+        shape-rendering="auto">
+    </svg:circle>
+    <svg:text [ngClass]="{ 'simulationInactive': node.isActive === false }"
+         class="id" dy=".3em">
+        {{node.id}}
+    </svg:text>
+</svg:g>

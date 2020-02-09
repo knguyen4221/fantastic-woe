@@ -2,6 +2,8 @@ import { Component, Input, Output } from "@angular/core";
 import { MSTService } from "../services/mst.service";
 import { ForceDirectedGraph } from "../shared/models/graph.model";
 import { Node } from "../shared/models/node.model";
+import { BinaryHeap } from '../shared/helpers/binary-heap';
+import { Link } from '../shared/models/link.model';
 
 @Component({
     selector: 'mst-sim',
@@ -15,6 +17,12 @@ export class MSTSimulationComponent {
     isStarted: boolean;
     current: Generator;
     lastSelectedVertex: Node;
+
+    connectionCost: Map<number, number>;
+    edgeTo: Map<number, Link>;
+    pq: BinaryHeap<Node>;
+
+    completed: Node[];
 
     constructor(private mstService: MSTService) {}
 
@@ -37,10 +45,25 @@ export class MSTSimulationComponent {
                 node.isSelected = false;
             }
             this.graph.tick();
-            this.current = this.mstService.PrimMST(this.graph, startVertex);
+            this.completed = [];
+            this.current = this.initializePrimMST(this.graph, startVertex);
             this.isStarted = true;
         }
         //TODO: check for graph connectivity
+    }
+
+    initializePrimMST(graph, startVertex) {
+        this.connectionCost = new Map<number, number>();
+        this.edgeTo = new Map<number, Link>();
+        this.pq = new BinaryHeap<Node>((a: Node, b: Node) => this.connectionCost.get(a.id) < this.connectionCost.get(b.id));
+        for(let node of graph.nodes) {
+            this.connectionCost.set(node.id,Infinity);
+            this.edgeTo.set(node.id, null);
+            this.pq.push(node);
+        }
+        this.connectionCost.set(startVertex.id, 0);
+        this.pq.decreaseKey(startVertex);
+        return this.mstService.PrimMST(this.graph, startVertex, this.connectionCost, this.edgeTo, this.pq);
     }
 
     tick() {
@@ -49,6 +72,7 @@ export class MSTSimulationComponent {
             this.isStarted = false;
             this.lastSelectedVertex.isSelected = true;
         }
+        this.completed.push(tick.value);
     }
 
     stop(){

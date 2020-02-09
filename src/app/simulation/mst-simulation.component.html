@@ -1,10 +1,31 @@
-<div>
+<div class="area">
     <span>MST (Prim's)</span>
 </div>
 <div>
 </div>
-<div>
+<div class="area">
     <button class="btn btn-outline-dark" type="button" (click)="initialize()" [disabled]="isStarted"> start</button>
     <button class="btn btn-outline-dark" type="button" (click)="tick()" [disabled]="!isStarted">tick</button>
     <button class="btn btn-outline-dark" type="button" (click)="stop()" [disabled]="!isStarted">stop</button>
+</div>
+<div *ngIf="isStarted" class="area">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Node ID</th>
+                <th>Connection Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let node of completed" class="done">
+                <th>{{node.id}}</th>
+                <th>{{connectionCost.get(node.id)}}</th>
+            </tr>
+            <tr *ngFor="let node of pq.storage">
+                <th>{{node.id}}</th>
+                <!-- Might be better to iterate over the dictionary instead -->
+                <th>{{connectionCost.get(node.id)}}</th>
+            </tr>
+        </tbody>
+    </table>
 </div>

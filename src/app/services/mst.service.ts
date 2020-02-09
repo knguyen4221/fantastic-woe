@@ -6,17 +6,8 @@ import { Link } from "../shared/models/link.model";
 
 @Injectable()
 export class MSTService {
-    *PrimMST(graph: ForceDirectedGraph, startVertex: Node) {
-        let connectionCost = new Map<number, number>();
-        let edgeTo = new Map<number, Link>();
-        let pq = new BinaryHeap<Node>((a: Node, b: Node) => connectionCost.get(a.id) < connectionCost.get(b.id));
-        for(let node of graph.nodes) {
-            connectionCost.set(node.id,Infinity);
-            edgeTo.set(node.id, null);
-            pq.push(node);
-        }
-        connectionCost.set(startVertex.id, 0);
-        pq.decreaseKey(startVertex);
+    *PrimMST(graph: ForceDirectedGraph, startVertex: Node, connectionCost: Map<number, number>, 
+            edgeTo: Map<number, Link>, pq: BinaryHeap<Node>) {
         while(pq.length != 0) {
             let newNode = pq.pop();
             if(edgeTo.get(newNode.id) !== null) {
